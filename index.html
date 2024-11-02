@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒數計時器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #timer {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>倒數計時器</h1>
+        <div>
+            <button onclick="startTimer(5)">5分鐘</button>
+            <button onclick="startTimer(10)">10分鐘</button>
+            <button onclick="startTimer(30)">30分鐘</button>
+        </div>
+        <div id="timer">00:00</div>
+    </div>
+
+    <script>
+        let countdown;
+        let remainingTime;
+
+        function startTimer(minutes) {
+            clearInterval(countdown);
+            remainingTime = minutes * 60;
+            updateTimerDisplay();
+
+            countdown = setInterval(() => {
+                remainingTime--;
+                if (remainingTime < 0) {
+                    clearInterval(countdown);
+                    alert('時間到！');
+                } else {
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+    </script>
+</body>
+</html>
